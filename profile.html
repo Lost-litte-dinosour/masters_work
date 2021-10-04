@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link rel="stylesheet" href="bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <!-- 引入Vue3 -->
+    <script src="https://unpkg.com/vue@3.0.0-beta.12/dist/vue.global.js"></script>
+    <!-- 引入jQurey -->
+    <script src="js/jquery.js"></script>
+    <!-- 引入axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <style>
+        .uploadimg {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+    </style>
+    <title>头像页面</title>
+</head>
+
+<body>
+
+    <div class='container' id='profile'>
+        <div v-if='cookie_set'>
+            <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs " style="height: 100px;"></div>
+            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-2 "></div>
+            <div class="col-lg-8 col-md-6 col-sm-6 col-xs-8 ">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " style="text-align: center;">
+                    <h2>{{user}}&nbsp; 的头像</h2>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <div class="col-lg-4 col-md-3 col-sm-2 "></div>
+                    <img :src="imgsrc" alt="" class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs " style="height: 100px;"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                <div id="app">
+                    <input type="file" id="txUrl" style="margin: 10px;">
+                    <button @click="upTx" style="margin: 10px;">更改头像</button>
+                    <!-- <img class="uploadimg" :src="imgsrc" /> -->
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs " style="height: 20px;"></div>
+            <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 ">
+                <h3>选择是否取消显示头像</h3>
+                <label style="margin: 10px;"><input name="use_visible" type="radio" :value="1" v-model="checkedValue" />显示</label>
+                <label style="margin: 10px;"><input name="use_visible" type="radio" :value="0" v-model="checkedValue" />隐藏</label>
+                <button @click='f_visible' style="margin: 10px;">修改</button>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                <!-- <div class="visible-sm col-sm-2"></div> -->
+                <a href="index.html" class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <h3>首页</h3>
+                </a>
+                <a href="choose.html" class="col-lg-5 col-md-5 col-sm-7 col-xs-12">
+                    <h3>破冰小游戏</h3>
+                </a>
+                <button @click="my_delete" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <h3>退出登录</h3>
+            </button>
+            </div>
+        </div>
+        <div v-else>
+            <h3>您还未登录，请<a href="log.html">登录</a></h3>
+        </div>
+    </div>
+
+
+
+    </div>
+    <script src="js/profile.js?timestamp=" + new Date().getTime()></script>
+</body>
+
+</html>

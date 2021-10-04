@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- 学长学姐好，欢迎来看我完成的任务，因为我第一志愿是后端，所以前端页面做的不是很漂亮，请见谅
+            1.破冰小游戏
+    介绍：输入名字的个数（暂定1-6个之间），点击生成题目，后台会随机返回一张图片的地址和题目
+    会随机让你判断明星的性别或者名字（名字个数以刚刚输入的个数为准），点击提交后返回后台校验
+    如果正确则提示判断正确、自动跳到下一题，如果错误则提示错误。
+
+            2.登录注册：
+    
+
+
+技术栈：使用了前端：html+css+js，后端php+mysql+apache，（我知道php比较垃圾，现在正在自学go）
+前端还使用了Vue3、Bootstrap响应式设计、jQurey等
+我已经把这个部署到我的阿里云服务器上，并且可以用我自己的域名访问它：rzclould.top/masters_work/choose.html
+后端优点：已经进行SQL过滤并且已经进行后端校验正确性、进行了简单的加密处理
+还要增进的点：来回传json数据只是进行了简单的base64加密，比较不安全，之后用java做后端的时候对其进行RSA算法进行加密 
+
+遗留的问题：恶意用户篡改cookie：加上密码一起验证
+头像上传XSS防护
+
+
+-->
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link rel="stylesheet" href="bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <!-- 引入Vue3 -->
+    <script src="https://unpkg.com/vue@3.0.0-beta.12/dist/vue.global.js"></script>
+    <!-- 引入jQurey -->
+    <script src="js/jquery.js"></script>
+    <title>破冰小游戏</title>
+</head>
+
+<body>
+    <div class='container' id='big'>
+        <div v-if='cookie_set'>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height: 50px;"></div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-1"></div>
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-10" style="height: 50px;text-align: center">
+                <h1>欢迎来到破冰小游戏</h1>
+                <h4>请输入1-6的名字数量哦！</h4>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-xs" style="height: 50px;"></div>
+            <div class="visible-xs col-xs-8"></div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4" style="text-align: center;">
+                <a href="profile.html">
+                    <img v-bind:src="profile" alt="" v-if='visible==1' class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h4 style="margin-top: 5px;">{{user}}</h4>
+                </a>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height: 100px;"></div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="float: left;">
+                图片数量： 1
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12" style="float: left;">
+                名字数量：
+                <input type="text" name="" id="" v-model='name_num'>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12" style="text-align: center;">
+                <button @click="get_msg(1, name_num)">生成题目</button>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height: 50px;"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+                <div class="col-lg-4 col-md-3 col-sm-2 col-xs-12"></div>
+                <img v-bind:src="image[0]" alt="" class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
+            </div>
+            <div v-if="index=='name'">
+                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12"></div>
+                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                    <div> 请判断明星的姓名：</div>
+                    <div v-for="i in choice">
+                        <label><input name="use_name" type="radio" :value="i" v-model="checkedValue"/>{{i}}</label>
+                    </div>
+                    <button @click="my_submit">提交</button>
+                </div>
+
+            </div>
+            <div v-if="index=='sex'">
+                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12"></div>
+                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                    <div> 请判断明星的性别：</div>
+                    <div v-for="i in choice">
+                        <label v-if="i==0"><input name="use_sex" type="radio" :value="1" v-model="checkedValue" />男</label>
+                        <label v-if="i==1"><input name="use_sex" type="radio" :value="0" v-model="checkedValue" />女</label>
+                    </div>
+                    <button @click="my_submit">提交</button>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-6 col-sm-5 col-xs-12"></div>
+            <div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+                <!-- <div class="visible-sm col-sm-2"></div> -->
+                <a href="index.html" class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <h3>首页</h3>
+                </a>
+                <a href="profile.html" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <h3>头像页面</h3>
+                </a>
+                <button @click="my_delete" class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                <h3>退出登录</h3>
+            </button>
+            </div>
+        </div>
+        <div v-else>
+            <h3>您还未登录，请<a href="log.html">登录</a></h3>
+        </div>
+    </div>
+    <script src="js/choose.js"></script>
+</body>
+
+</html>
