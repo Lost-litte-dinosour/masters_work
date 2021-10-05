@@ -58,7 +58,7 @@ const MyEvent = {
                                     // alert();
                                     location.reload();
                                 }
-                            } else if (data['data'] == '您的Cookie信息已经被更改，请重新登录！' || data['data'] == '您未登录！') {
+                            } else if (data['data'] == '您的Cookie信息已经被更改，请重新登录！(大佬别搞了球球了)' || data['data'] == '您未登录！') {
                                 window.location.href = 'log.html';
                             }
                         }

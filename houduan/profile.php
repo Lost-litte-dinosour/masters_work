@@ -47,7 +47,7 @@ if (isset($my_type) && ($my_type == 'image/jpeg' || $my_type == 'image/png' || $
             my_back("200", "Return Tips", "上传失败", "");
         }
     } else {
-        my_back("200", "Return Tips", "您的Cookie信息已经被更改，请重新登录！", "");
+        my_back("200", "Return Tips", "您的Cookie信息已经被更改，请重新登录！(大佬别搞了球球了)", "");
     }
 } else {
     my_back("200", "Return Tips", "上传类型不正确或者超出大小(最大为1MB),请重新上传！", "");

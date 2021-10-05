@@ -69,43 +69,5 @@ function my_error($link, $my_line, $sql)
     return $res;
 }
 
-function filter($str) //SQL过滤函数
-{
-    if (empty($str)) return false;
-    $str = htmlspecialchars($str);
-    $str = str_replace('ASCII', "", $str);
-    $str = str_replace('ASCII 0x0d', "", $str);
-    $str = str_replace('ASCII 0x0a', "", $str);
-    $str = str_replace('sysopen', "", $str);
-    $str = str_replace('ASCII 0x08', "", $str);
-    $str = str_replace("&gt", "", $str);
-    $str = str_replace("&lt", "", $str);
-    $str = str_replace("<SCRIPT>", "", $str);
-    $str = str_replace("</SCRIPT>", "", $str);
-    $str = str_replace("<script>", "", $str);
-    $str = str_replace("</script>", "", $str);
-    $str = str_replace("select", "", $str);
-    $str = str_replace("union", "", $str);
-    $str = str_replace("insert", "", $str);
-    $str = str_replace("delete", "", $str);
-    $str = str_replace("update", "", $str);
-    $str = str_replace("DROP", "", $str);
-    $str = str_replace("create", "", $str);
-    $str = str_replace("modify", "", $str);
-    $str = str_replace("rename", "", $str);
-    $str = str_replace("alter", "", $str);
-    $str = str_replace("<br />", chr(13), $str);
-    $str = str_replace("CSS", "'", $str);
-    $str = str_replace("<!--", "", $str);
-    $str = str_replace("convert", "", $str);
-    $str = str_replace("md5", "", $str);
-    $str = str_replace("passwd", "", $str);
-    $str = str_replace("password", "", $str);
-    $str = str_replace("Array", "", $str);
-    $str = str_replace(";set|set&set;", "", $str);
-    $str = str_replace("`set|set&set`", "", $str);
-    $str = str_replace("mailto:", "", $str);
-    $str = str_replace("CHAR", "", $str);
-    return $str;
-}
+
 ?>
