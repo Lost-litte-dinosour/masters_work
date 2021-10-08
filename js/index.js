@@ -37,7 +37,7 @@ const MyEvent = {
             dataType: 'json',
             async: false,
             success: function(data) {
-                if (base.decode(data['msg']) == '您的Cookie信息已经被更改，请重新登录！') {
+                if (base.decode(data['msg']) == '您的Cookie信息已经被更改，请重新登录！(大佬别搞了球球了)') {
                     alert(base.decode(data['msg']));
                     window.location.href = 'log.html';
                 } else if (base.decode(data['msg']) == '您未登录！') {

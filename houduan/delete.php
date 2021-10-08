@@ -19,3 +19,4 @@ echo json_encode($array);
 $fp = fopen("log.txt", 'a'); //日志记录
 fwrite($fp, "[" . date('Y-m-d H:i:s') . "]  " . $temp . " 用户登出了\r\n");
 fclose($fp);
+?>
