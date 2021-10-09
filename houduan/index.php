@@ -8,7 +8,7 @@ $link = mysqli_connect('localhost', 'root', '1234') or die("数据库连接失�
 
 if (!(isset($_SESSION['password']) && isset($_SESSION['email'])) && isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
     $_SESSION['password'] = base64_decode($_COOKIE['password']);
-//    $_SESSION['profile'] = base64_decode($_COOKIE['profile']);
+//    $_SESSION['profile'] = base64_decode($_COOKIE['profile']); 
 //    $_SESSION['visible'] = base64_decode($_COOKIE['visible']);
     $_SESSION['email'] = base64_decode($_COOKIE['email']);
 //    && (!(isset($_COOKIE['password']) && isset($_COOKIE['email'])) || (base64_decode($_COOKIE['password']) != $_SESSION['password'] && base64_decode($_COOKIE['email']) != $_SESSION['email']))
