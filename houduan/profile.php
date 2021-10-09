@@ -23,7 +23,7 @@ if (isset($my_type) && ($my_type == 'image/jpeg' || $my_type == 'image/png' || $
 //    $_SESSION['visible'] = base64_decode($_COOKIE['visible']);
         $_SESSION['email'] = base64_decode($_COOKIE['email']);
 //    && (!(isset($_COOKIE['password']) && isset($_COOKIE['email'])) || (base64_decode($_COOKIE['password']) != $_SESSION['password'] && base64_decode($_COOKIE['email']) != $_SESSION['email']))
-    } elseif (isset($_SESSION['password']) && isset($_SESSION['email'])) { //总之就是如果设置了session，cookie就要和session一样
+} elseif (isset($_SESSION['password']) && isset($_SESSION['email']) && $_SESSION['password']!='' && $_SESSION['password']!='') { //总之就是如果设置了session且不为空，cookie就要和session一样
         setcookie('password', base64_encode($_SESSION['password']), time() + 30 * 60); //采用base64加密存储
         setcookie('email', base64_encode($_SESSION['email']), time() + 30 * 60);
 //    $temp = $_SESSION['pet_name'];
