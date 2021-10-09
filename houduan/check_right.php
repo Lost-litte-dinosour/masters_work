@@ -5,7 +5,7 @@
 //SQL过滤
 $my_post['index'] = filter($_POST['index']);
 $my_post['image'][0] = filter($_POST['image'][0]);
-$my_post['choice'] = filter($_POST['choice']);
+$my_post['choice'] = $_POST['choice'];
 //echo $my_post['index'];
 
 
